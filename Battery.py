@@ -8,15 +8,16 @@ Created on Tue Oct 23 10:09:35 2018
 
 class Battery(object):
     
-    def __init__(self, level, total):
-        self.level = level
-        self.total = total
+    def __init__(self, ini_level=0.5, total_level=10):
+        self.ini_level = ini_level
+        self.curr_level = ini_level
+        self.total_level = total_level
         
         
     def incrLevel(self, x):
-        self.level += x
+        self.curr_level += x
         
         
     def decrLevel(self, x):
-        self.level -= x
+        self.curr_level -= x
         

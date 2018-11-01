@@ -31,4 +31,4 @@ class Radio(object):
         pkt = self.out_fifo.pop(0)
         return pkt
         
- 
+

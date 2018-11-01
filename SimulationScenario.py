@@ -7,9 +7,11 @@ Created on Tue Oct  2 14:44:28 2018
 """
 from Node import NodeSimpleP2P as Node
 from PhisicalMediumModel import PhisicalMediumModel
+from EnergySourceModel import EnergySourceModel
    
 nodes = [Node(1), Node(2)]
 phy = PhisicalMediumModel(nodes)
+en_source = EnergySourceModel
 
 for n in nodes:
     if n._id % 2 == 1:
@@ -20,6 +22,7 @@ for n in nodes:
 def runSimulation():
             
     for n in nodes:
+        en_source.run(n)
         n.run()
         phy.run(n)
     

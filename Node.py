@@ -11,6 +11,7 @@ from abc import ABCMeta, abstractmethod
 from Radio import Radio
 from Battery import Battery
 from Packet import Packet
+from Consumo import Consumo
 
 class Node(object, metaclass=ABCMeta):
     
@@ -18,13 +19,23 @@ class Node(object, metaclass=ABCMeta):
         self._id = _id
         self.radio = Radio()
         self.state = state
-        #self.bateria = Battery()
+        self.battery = Battery()
+        self.ger_consumo = Consumo()
         self.pos_x = np.random.uniform(0, config.AREA_WIDTH)
         self.pos_y = np.random.uniform(0, config.AREA_LENGHT)
     
     @abstractmethod
     def run(self):
         pass
+    
+    
+    def is_alive(self):
+        
+        if self.battery <= 0:
+            self.state = 'dead'
+            return False
+        else:
+            return True
     
 
 class NodeSimpleP2P(Node):
@@ -48,3 +59,5 @@ class NodeSimpleP2P(Node):
             if self.radio.in_fifo:
                 self.radio.rcvPacket()
                 self.state = 'send'
+                
+        self.ger_consumo.run(self.battery)

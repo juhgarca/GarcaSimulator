@@ -10,13 +10,13 @@ class Packet(object):
     
     pkt_id = 0
     
-    def __init__(self, srcAddr, destAddr = 0, tx_pwr):
+    def __init__(self, srcAddr, destAddr = 0):
         
         self.__class__.pkt_id += 1
         self.srcAddr = srcAddr
         self.destAddr = destAddr
         self.payload = 'Pacote ' + str(self.pkt_id)
-        self.tx_pwr = tx_pwr
+        #self.t_stamp = 
         
         # pensar numa função para tratar o envio em broadcast
         # essa funcção ficaria aqui ou na classe Node??
