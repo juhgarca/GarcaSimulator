@@ -16,14 +16,10 @@ class Battery(object):
         
     def incrLevel(self, n_id, x):
         self.curr_level += x
-        with open('bateria.txt', 'a') as f:
-            f.write("{} recebeu {} Joules\r\n".format(n_id, x))
         
         
     def decrLevel(self, n_id, x):
         self.curr_level -= x
-        with open('bateria.txt', 'a') as f:
-            f.write("{} consumiu {} Joules\r\n".format(n_id, x))
         
         
     

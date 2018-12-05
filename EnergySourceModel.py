@@ -9,7 +9,7 @@ Created on Thu Nov  1 15:54:22 2018
 class EnergySourceModel(object):
     
     def __init__(self):
-        self.load = 0.5     #Joules
+        self.load = 0.1     #Joules
         
         
     def run(self, node):
