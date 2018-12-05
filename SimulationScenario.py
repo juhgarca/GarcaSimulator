@@ -11,7 +11,7 @@ from EnergySourceModel import EnergySourceModel
    
 nodes = [Node(1), Node(2)]
 phy = PhisicalMediumModel(nodes)
-en_source = EnergySourceModel
+en_source = EnergySourceModel()
 
 for n in nodes:
     if n._id % 2 == 1:
@@ -19,7 +19,7 @@ for n in nodes:
     else:
         n.state = 'wait'
    
-def runSimulation():
+def runSimulation(nodes):
             
     for n in nodes:
         en_source.run(n)
@@ -27,8 +27,8 @@ def runSimulation():
         phy.run(n)
     
 times = 0 
-while times < 4:
+while times < 3:
     
-    runSimulation()
+    runSimulation(nodes)
     
     times += 1

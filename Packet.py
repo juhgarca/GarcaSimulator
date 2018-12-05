@@ -10,7 +10,7 @@ class Packet(object):
     
     pkt_id = 0
     
-    def __init__(self, srcAddr, destAddr = 0):
+    def __init__(self, srcAddr, destAddr = 'B'):
         
         self.__class__.pkt_id += 1
         self.srcAddr = srcAddr

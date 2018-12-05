@@ -52,12 +52,14 @@ class NodeSimpleP2P(Node):
     def run(self):
             
         if self.state == 'send':
-            pkt = Packet(self._id, self.dest, 50)
+            pkt = Packet(self._id, self.dest)
             self.radio.sendPacket(pkt)
+            self.ger_consumo.consumo += self.radio.gasto_tx
             self.state = 'wait'
         elif self.state == 'wait':
             if self.radio.in_fifo:
                 self.radio.rcvPacket()
+                self.ger_consumo.consumo += self.radio.gasto_rx
                 self.state = 'send'
                 
-        self.ger_consumo.run(self.battery)
+        self.ger_consumo.run(self._id, self.battery)

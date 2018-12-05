@@ -16,5 +16,5 @@ class Consumo(object):
         self.consumo += x
         
         
-    def run(self, batt):
-        batt.decrLevel(self.consumo)
+    def run(self, n_id, batt):
+        batt.decrLevel(n_id, self.consumo)

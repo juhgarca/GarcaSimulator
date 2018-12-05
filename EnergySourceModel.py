@@ -13,5 +13,5 @@ class EnergySourceModel(object):
         
         
     def run(self, node):
-        node.battery.incrLevel(self.load)
+        node.battery.incrLevel(node._id, self.load)
     
