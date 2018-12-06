@@ -26,7 +26,7 @@ class Node(object, metaclass=ABCMeta):
         self.pos_y = np.random.uniform(0, config.AREA_LENGHT)
     
     @abstractmethod
-    def run(self):
+    def run(self, r):
         pass
     
     
@@ -50,16 +50,16 @@ class NodeSimpleP2P(Node):
             self.dest = self._id+1
             
         
-    def run(self):
+    def run(self, r):
             
         if self.state == 'send':
             pkt = Packet(self._id, self.dest)
-            self.radio.sendPacket(pkt)
+            self.radio.sendPacket(pkt, r)
             self.ger_consumo.consumo += self.radio.gasto_tx
             self.state = 'wait'
         elif self.state == 'wait':
             if self.radio.in_fifo:
-                self.radio.rcvPacket()
+                self.radio.rcvPacket(r)
                 self.ger_consumo.consumo += self.radio.gasto_rx
                 self.state = 'send'
                 

@@ -16,7 +16,8 @@ class Packet(object):
         self.srcAddr = srcAddr
         self.destAddr = destAddr
         self.payload = 'Pacote ' + str(self.pkt_id)
-        #self.t_stamp = 
+        self.t_tx = 0
+        self.t_rx = 0
         
         # pensar numa função para tratar o envio em broadcast
         # essa funcção ficaria aqui ou na classe Node??

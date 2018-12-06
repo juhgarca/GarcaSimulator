@@ -25,4 +25,6 @@ class PhisicalMediumModel(object):
             pacote = n.radio.removePacket()
             dest = pacote.destAddr
             self.nodes[dest-1].radio.addPacket(pacote)
+        
+
             

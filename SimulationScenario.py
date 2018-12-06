@@ -10,12 +10,22 @@ from PhisicalMediumModel import PhisicalMediumModel
 from EnergySourceModel import EnergySourceModel
 import pandas as pd
 import matplotlib.pyplot as plt
-   
+
+
+# =============================================================================
+# nodes = []
+# num_nodes = 10
+# for n in list(range(1,num_nodes+1)):
+#     nodes.append(Node(n))
+# =============================================================================
 nodes = [Node(1), Node(2)]
 phy = PhisicalMediumModel(nodes)
 en_source = EnergySourceModel()
 f = open('bateria.csv', 'w')
 f.write("round id_node curr_load\r\n")
+f.close()
+f = open('log.csv', 'w')
+f.write("pkt_id src t_tx dest t_rx\r\n")
 f.close()
 
 for n in nodes:
@@ -26,28 +36,30 @@ for n in nodes:
    
 def runSimulation(nodes):
     
-    print("Round: ", time)
+    #print("Round: ", r)
             
     for n in nodes:
         en_source.run(n)
-        n.run()
+        n.run(r)
         phy.run(n)
         
         with open('bateria.csv', 'a') as f:
-            f.write("{} {} {}\r\n".format(time, n._id, n.battery.curr_level))
+            f.write("{} {} {}\r\n".format(r, n._id, n.battery.curr_level))
     
-time = 1
-while time <= 10:
+r = 1
+while r <= 8:
     
     runSimulation(nodes)
     
-    time += 1
+    r += 1
     
-batt = pd.read_csv('bateria.csv', delimiter=' ')
-x = list(range(1, 11))
-y1 = batt[batt.id_node == 1]['curr_load']
-y2 = batt[batt.id_node == 2]['curr_load']
-plt.plot(x, y1)
-plt.plot(x, y2)
-plt.show()
+# =============================================================================
+# batt = pd.read_csv('bateria.csv', delimiter=' ')
+# x = list(range(1, 11))
+# y1 = batt[batt.id_node == 1]['curr_load']
+# y2 = batt[batt.id_node == 2]['curr_load']
+# plt.plot(x, y1)
+# plt.plot(x, y2)
+# plt.show()
+# =============================================================================
 

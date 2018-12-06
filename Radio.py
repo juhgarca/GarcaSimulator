@@ -17,17 +17,21 @@ class Radio(object):
         self.gasto_tx = float(Decimal(50*math.pow(10, -9)) * 2000 + Decimal(100*math.pow(10, -12)) * self.power**2)
         self.gasto_rx = 0.0001
     
-    def sendPacket(self, pkt):      # coloca pacote na out_fifo
+    def sendPacket(self, pkt, r):      # coloca pacote na out_fifo
+        pkt.t_tx = r
         self.out_fifo.append(pkt)
         #gasto = float(Decimal(50*math.pow(10, -9)) * 2000 + Decimal(100*math.pow(10, -12)) * self.power**2)
-        print("Nó", pkt.srcAddr, "enviou", pkt.payload)
+        print("Nó", pkt.srcAddr, "enviou", pkt.payload, "no tempo", pkt.t_tx)
         #return gasto
         
     
-    def rcvPacket(self):   # tira pacote da in_fifo
+    def rcvPacket(self, r):   # tira pacote da in_fifo
         pkt = self.in_fifo.pop(0)
+        pkt.t_rx = r
         #gasto = 0.0001 # float(Decimal(50*math.pow(10, -9)) * 2000)
-        print("Nó", pkt.destAddr, "recebeu", pkt.payload)
+        print("Nó", pkt.destAddr, "recebeu", pkt.payload, "no tempo", pkt.t_rx)
+        with open('log.csv', 'a') as f:
+            f.write("{} {} {}\r\n".format(pkt.pkt_id, pkt.srcAddr, pkt.t_tx, pkt.destAddr, pkt.t_rx))
         #return gasto
         
         
